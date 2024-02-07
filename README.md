@@ -21,11 +21,23 @@ What things you need to install the software and how to install them:
 Python 3.x
 ```
 
-### Installation
+### Installing
 
-Clone the repository using HTTPS:
+A step by step process:
+
+1. Clone the repository using HTTPS:
 ```bash
 git clone https://github.com/yourusername/justify-text-script.git
+```
+
+2. Navigate to the cloned directory:
+```bash
+cd <cloned-directory>
+```
+
+3. Run the script with Python:
+```bash
+python justify_text.py
 ```
 
 ### Running the Tests
@@ -47,4 +59,3 @@ print(justify_text(paragraph, page_width))
 ```
 
 ---
-
