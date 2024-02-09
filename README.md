@@ -71,4 +71,14 @@ Array [5] = "are adding more text"
 Array [6] = "to see that it"
 Array [7] = "actually works."
 ```
+
+### Running the Tests
+To ensure the justify_text.py script functions as expected, you can run the provided unit tests in test_justify_text.py. Execute the following command in the terminal:
+
+```bash
+python -m unittest test_justify_text.py
+```
+
+This will run all the tests defined in the test_justify_text.py file and report any failures.
+
 ---
