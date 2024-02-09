@@ -4,38 +4,33 @@ def justify_text(paragraph, page_width):
     current_line = []
     current_length = 0
 
-    # Split words into lines considering page width
     for word in words:
-        if current_length + len(word) + len(current_line) <= page_width:
-            current_line.append(word)
-            current_length += len(word)
-        else:
-            lines.append(' '.join(current_line))
+        if current_length + len(word) + len(current_line) > page_width:
+            lines.append(current_line)
             current_line = [word]
             current_length = len(word)
-
-    if current_line:  # Add the last line
-        lines.append(' '.join(current_line))
-
-    # Justify lines except the last line
-    justified_lines = []
-    for line in lines[:-1]:  # Exclude the last line for special handling
-        if " " not in line:  # Single word in line
-            justified_lines.append(line)
         else:
-            words = line.split()
-            spaces_needed = page_width - sum(len(word) for word in words)
-            spaces = len(words) - 1
-            extra_spaces = spaces_needed % spaces
-            space_between_words = spaces_needed // spaces + 1
+            current_line.append(word)
+            current_length += len(word)
 
-            for i in range(extra_spaces):
-                words[i] += ' '
-            justified_line = (' ' * space_between_words).join(words)
+    if current_line:
+        lines.append(current_line)
+
+    justified_lines = []
+    for idx, line in enumerate(lines):
+        if len(line) == 1:
+            # If there's only one word, just adjust the spacing accordingly.
+            justified_lines.append(line[0].ljust(page_width))
+        else:
+            total_spaces_needed = page_width - sum(len(word) for word in line)
+            minimum_space_between_words = total_spaces_needed // (len(line) - 1)
+            extra_spaces_needed = total_spaces_needed % (len(line) - 1)
+
+            for i in range(extra_spaces_needed):
+                line[i] += ' '
+            
+            justified_line = (' ' * minimum_space_between_words).join(line).ljust(page_width)
             justified_lines.append(justified_line)
-
-    # Left justify the last line
-    justified_lines.append(lines[-1].ljust(page_width))
 
     return justified_lines
 

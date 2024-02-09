@@ -1,41 +1,51 @@
 import unittest
-from justify_text import justify_text  # Make sure to adjust import path as needed
+from justify_text import justify_text  # Ensure to match the actual import path
 
 class TestJustifyText(unittest.TestCase):
-    def test_single_line(self):
+    
+    def test_basic_justification(self):
         paragraph = "This is a test."
-        page_width = 20
-        expected = ["This is a test.    "]  # Adjust expected result based on implementation
-        self.assertEqual(justify_text(paragraph, page_width), expected)
-
-    def test_multiple_lines(self):
+        page_width = 14
+        expected = ["This is a test."]
+        result = justify_text(paragraph, page_width)
+        self.assertEqual(result, expected)
+        
+    def test_full_justification(self):
         paragraph = "This is a sample text but a complicated problem to be solved, so we are adding more text to see that it actually works."
         page_width = 20
         expected = [
-            "This  is  a  sample",  # Expected results might need adjustments
-            "text  but  a      ",
-            "complicated problem",
-            "to be solved, so we",
-            "are  adding  more  ",
-            "text to see that it",
-            "actually works.    "
+            "This  is  a sample",
+            "text  but a      ",
+            "complicated      ",
+            "problem to be    ",
+            "solved, so we are",
+            "adding more text ",
+            "to see that it   ",
+            "actually  works. "
         ]
-        self.assertEqual(justify_text(paragraph, page_width), expected)
+        result = justify_text(paragraph, page_width)
+        self.assertEqual(result, expected)
+
+    def test_single_word_line(self):
+        paragraph = "Word"
+        page_width = 10
+        expected = ["Word      "]
+        result = justify_text(paragraph, page_width)
+        self.assertEqual(result, expected)
+
+    def test_paragraph_with_long_word(self):
+        paragraph = "This wordiswaytoolongforasingleline"
+        page_width = 10
+        expected = ["This      ", "wordiswayt", "oolongfora", "singleline"]
+        result = justify_text(paragraph, page_width)
+        self.assertEqual(result, expected)
 
     def test_empty_paragraph(self):
         paragraph = ""
         page_width = 20
-        expected = [""]
-        self.assertEqual(justify_text(paragraph, page_width), expected)
-
-    def test_page_width_too_small(self):
-        paragraph = "This is a test."
-        page_width = 5
-        # Assuming function handles small page width by not breaking words and simply overflowing the width
-        expected = ["This is a test."]
-        self.assertEqual(justify_text(paragraph, page_width), expected)
-
-# Add more test cases to test
+        expected = []
+        result = justify_text(paragraph, page_width)
+        self.assertEqual(result, expected)
 
 if __name__ == '__main__':
     unittest.main()
